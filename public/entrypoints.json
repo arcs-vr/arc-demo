@@ -1,0 +1,9 @@
+{
+  "entrypoints": {
+    "build/main": {
+      "js": [
+        "/build/js/build/main.65e5d418c2c925e104ee.js"
+      ]
+    }
+  }
+}

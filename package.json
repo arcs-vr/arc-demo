@@ -1,0 +1,66 @@
+{
+  "name": "arc-vue-template",
+  "version": "0.2.0",
+  "license": "MIT",
+  "description": "Template repository for an A-Frame, ARCS & Vue.js project",
+  "repository": "https://github.com/arcs-vr/arc-vue-template",
+  "author": "Barthy Bonhomme <post@barthy.koeln>",
+  "private": false,
+  "keywords": [
+    "aframe",
+    "aframe-controls",
+    "ARCS",
+    "MQTT",
+    "proxy",
+    "remote",
+    "socket",
+    "VR",
+    "WebXR",
+    "WebVR",
+    "websocket",
+    "WebRTC"
+  ],
+  "scripts": {
+    "dev-server": "UV_THREADPOOL_SIZE=100 encore dev-server --https --host 192.168.178.21",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ],
+  "desktop": "src/main.js",
+  "dependencies": {
+    "aframe": "^1.0.3",
+    "aframe-intersection-events": "barthy-koeln/aframe-intersection-events",
+    "arc-aframe-system": "arcs-vr/arc-aframe-system",
+    "arc-ci": "arcs-vr/arc-ci",
+    "arc-cursor": "arcs-vr/arc-cursor",
+    "arc-events": "arcs-vr/arc-events",
+    "arc-remotes": "arcs-vr/arc-remotes",
+    "regenerator-runtime": "^0.13.3",
+    "three-mesh-bvh": "^0.1.5",
+    "vue": "^2.6.10",
+    "vue-router": "^3.1.3"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.28.0",
+    "autoprefixer": "^9.7.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "core-js": "^3",
+    "css-loader": "^2.1.1",
+    "cssnano": "^4.1.10",
+    "html-webpack-injector": "^1.1.2",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.13.0",
+    "postcss-discard-comments": "^4.0.2",
+    "postcss-loader": "^3.0.0",
+    "postcss-scss": "^2.0.0",
+    "sass-loader": "^7.0.1",
+    "terser-webpack-plugin": "^2.2.1",
+    "vue-loader": "^15.7.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack-notifier": "^1.8.0",
+    "webpack-sources": "^1.4.3"
+  }
+}
