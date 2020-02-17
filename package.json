@@ -1,0 +1,74 @@
+{
+  "name": "arc-demo",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Demo repository for an A-Frame, ARCS & Vue.js project",
+  "repository": "https://github.com/arcs-vr/arc-vue-template",
+  "author": "Barthy Bonhomme <post@barthy.koeln>",
+  "private": false,
+  "keywords": [
+    "aframe",
+    "aframe-controls",
+    "ARCS",
+    "MQTT",
+    "proxy",
+    "remote",
+    "socket",
+    "VR",
+    "WebXR",
+    "WebVR",
+    "websocket",
+    "WebRTC"
+  ],
+  "scripts": {
+    "dev-server": "UV_THREADPOOL_SIZE=100 encore dev-server --https --host 127.0.0.1",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production"
+  },
+  "browserslist": [
+    ">1%, last 2 versions, not dead"
+  ],
+  "desktop": "src/main.js",
+  "dependencies": {
+    "@vxna/gltf-loader": "^2.0.1",
+    "aframe": "aframevr/aframe",
+    "aframe-intersection-events": "barthy-koeln/aframe-intersection-events",
+    "arc-aframe-cursor": "arcs-vr/arc-aframe-cursor",
+    "arc-aframe-hand-camera": "arcs-vr/arc-aframe-hand-camera",
+    "arc-aframe-movement": "arcs-vr/arc-aframe-movement",
+    "arc-aframe-system": "arcs-vr/arc-aframe-system",
+    "arc-cd": "arcs-vr/arc-cd",
+    "arc-events": "arcs-vr/arc-events",
+    "arc-vue-options-plugin": "arcs-vr/arc-vue-options-plugin",
+    "arc-vue-remotes": "arcs-vr/arc-vue-remotes",
+    "bootstrap": "^4.5.0",
+    "regenerator-runtime": "^0.13.3",
+    "three-mesh-bvh": "gkjohnson/three-mesh-bvh",
+    "uuid": "^8.2.0",
+    "vue": "^2.6.10",
+    "vue-router": "^3.1.3"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.30.2",
+    "autoprefixer": "^9.7.1",
+    "core-js": "^3",
+    "cssnano": "^4.1.10",
+    "html-webpack-injector": "^1.1.2",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.13.0",
+    "postcss-discard-comments": "^4.0.2",
+    "postcss-loader": "^3.0.0",
+    "postcss-scss": "^2.0.0",
+    "sass-loader": "^8.0.0",
+    "url-loader": "^4.0.0",
+    "vue-loader": "^15.9.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack-notifier": "^1.8.0",
+    "webpack-sources": "^1.4.3",
+    "worker-loader": "^2.0.0"
+  },
+  "resolutions": {
+    "debug": ">=2.6.9"
+  }
+}
