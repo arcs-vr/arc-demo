@@ -4,11 +4,11 @@
     <a-assets @loaded="listeners['loaded']">
 
         <a-asset-item id="model"
-                      src="/models/environment/arcs-demo-slim.gltf"
+                      src="/models/scifi_buildings.gltf"
         />
 
         <a-asset-item id="floor"
-                      src="/models/environment/arcs-demo-floors.gltf"
+                      src="/models/scifi_ground.gltf"
         />
 
     </a-assets>

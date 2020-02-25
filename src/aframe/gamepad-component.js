@@ -5,10 +5,6 @@ import { ArcEvents } from 'arc-events'
  * @type {object}
  */
 const GamepadMovement = {
-  schema: {
-    acceleration: {default: 200},
-    fly: {default: false}
-  },
 
   /**
    * Bind functions to the component and add event listeners
@@ -36,8 +32,7 @@ const GamepadMovement = {
     this.enterVR        = this.enterVR.bind(this)
     this.arcsConnected  = this.arcsConnected.bind(this)
     this.onJoystickMove = this.onJoystickMove.bind(this)
-
-    this.tick = AFRAME.utils.throttleTick(this.tick, 34, this)
+    this.tick           = this.tick.bind(this)
   },
 
   /**
@@ -85,7 +80,7 @@ const GamepadMovement = {
       return
     }
 
-    this.setMovementVector(delta / 1000)
+    this.setMovementVector(delta)
     this.el.object3D.position.add(this.movementVector)
   },
 
@@ -100,9 +95,8 @@ const GamepadMovement = {
     this.movementVector.multiplyScalar(-1)
 
     this.movementVector.applyAxisAngle(this.rotationAxis, this.radians)
-    this.movementVector.multiplyScalar(this.force * (this.data.acceleration / 100) * delta)
-
-    this.movementVector.y = this.data.fly ? this.movementVector.y : 0
+    this.movementVector.multiplyScalar(this.force * (delta / 1000))
+    this.movementVector.y = 0
   }
 }
 

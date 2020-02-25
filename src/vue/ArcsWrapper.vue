@@ -1,4 +1,4 @@
-<template>
+<template v-once>
     <a-scene :arc-system="`
                 host: ${host};
                 port: ${port};
@@ -6,6 +6,11 @@
                 app: ${app};
               `"
              @loaded.self="sceneLoaded = true"
+             envmap-model="
+                path: /cubemap/;
+                intensity: 1;
+                fileTypes: png;
+             "
              light="defaultLightsEnabled: false"
              loading-screen="enabled: false;"
              ref="scene"
@@ -51,16 +56,18 @@
 
 <script>
   import 'aframe/dist/aframe-v1.0.4.js'
-  import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh'
   import 'arc-aframe-system'
+  import '../aframe/envmap-model-system.js'
+
+  import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh'
 
   import ArcLogo          from 'arc-ci/template/ArcLogo.vue'
   import ArcConnectButton from 'arc-remotes/src/components/ArcConnectButton.vue'
   import ArcConnectModal  from 'arc-remotes/src/components/ArcConnectModal.vue'
   import AframeAssets     from './AframeAssets.vue'
 
-  import AframeApp        from './AframeApp.vue'
-  import AframeCameraRig  from './AframeCameraRig.vue'
+  import AframeApp       from './AframeApp.vue'
+  import AframeCameraRig from './AframeCameraRig.vue'
 
   THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree
   THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree

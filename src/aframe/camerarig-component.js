@@ -26,6 +26,18 @@ const CameraRig = {
      */
     this.wasdControls = this.el.components['wasd-controls']
 
+    /**
+     * Movement Vector
+     * @type {Vector3}
+     */
+    this.directionVector = new THREE.Vector3(0, 0, 0)
+
+    /**
+     * Player/Camera Rotation
+     * @type {Quaternion}
+     */
+    this.rotationQuaternion = new THREE.Quaternion(0, 0, 0, 0)
+
     this.bindFunctions()
     this.addEventListeners()
 
@@ -36,8 +48,9 @@ const CameraRig = {
    * Bind functions to the component
    */
   bindFunctions () {
-    this.enterVR       = this.enterVR.bind(this)
-    this.arcsConnected = this.arcsConnected.bind(this)
+    this.enterVR           = this.enterVR.bind(this)
+    this.arcsConnected     = this.arcsConnected.bind(this)
+    this.getMovementVector = this.getMovementVector.bind(this)
   },
 
   /**
@@ -62,33 +75,22 @@ const CameraRig = {
   },
 
   /**
-   * Creates the movement vector calculation function.
-   *
-   * @return {function(): Vector3}
+   * Overrides the wasd-controls component's methods in VR mode.
+   * The standard component does not use wasd-controls in VR mode and therefore does not correctly
+   * calculate the movement direction vector.
+
+   * @param {Number} delta: Time delta since last tick
+   * @return {Vector3}
    */
-  getMovementVector: (function () {
-    const directionVector    = new THREE.Vector3(0, 0, 0)
-    const rotationQuaternion = new THREE.Quaternion(0, 0, 0, 0)
+  getMovementVector (delta) {
+    this.camera.getWorldQuaternion(this.rotationQuaternion)
+    this.directionVector.copy(this.wasdControls.velocity)
+    this.directionVector.multiplyScalar(delta * 20)
+    this.directionVector.applyQuaternion(this.rotationQuaternion)
+    this.directionVector.y = 0
 
-    /**
-     * Overrides the wasd-controls component's methods in VR mode.
-     * The standard component does not use wasd-controls in VR mode and therefore does not correctly
-     * calculate the movement direction vector.
-     *
-     * @param {Number} delta: Time delta since last tick
-     *
-     * @return {Vector3}
-     */
-    return function getMovementVector (delta) {
-      this.camera.getWorldQuaternion(rotationQuaternion)
-      directionVector.copy(this.wasdControls.velocity)
-      directionVector.multiplyScalar(delta)
-      directionVector.applyQuaternion(rotationQuaternion)
-      directionVector.y = this.data.fly ? directionVector.y : 0
-
-      return directionVector
-    }
-  })(),
+    return this.directionVector
+  },
 
   /**
    * Monkey patch the movement direction vector calculation in VR Mode.
@@ -97,7 +99,7 @@ const CameraRig = {
   monkeyPatchWASDControls () {
     const WASDControls = AFRAME.components['wasd-controls'].Component
 
-    WASDControls.prototype.getMovementVector = this.getMovementVector.bind(this)
+    WASDControls.prototype.getMovementVector = this.getMovementVector
   },
 }
 

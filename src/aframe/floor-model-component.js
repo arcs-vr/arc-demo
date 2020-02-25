@@ -23,12 +23,9 @@ const FloorModelComponent = {
   },
 
   modelLoaded () {
-    this.el.sceneEl.emit('floor-loaded', this.el.object3D)
-
-    const material       = this.el.object3D.children[0].children[0].material
-    material.transparent = true
-    material.opacity     = 0
-    material.needsUpdate = true
+    setTimeout(() => {
+      this.el.sceneEl.emit('floor-loaded', this.el.object3D)
+    }, 300)
   }
 }
 

@@ -1,23 +1,13 @@
 <template>
     <a-entity camera-rig
-              gamepad-movement="
-                acceleration: 100;
-                fly: false;
-              "
+              gamepad-movement
               id="camera-rig"
-              position="-8 0 5"
+              position="-8 25 5"
               rotation="0 0 0"
               wasd-controls="
-                acceleration: 100;
                 fly: false;
               "
               player-body
-              geometry="
-                primitive: box;
-                width: .5;
-                height: 1.65;
-                depth: .75;
-              "
     >
         <a-entity camera
                   id="main-camera"

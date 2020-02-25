@@ -1,6 +1,16 @@
 const PlayerBodyComponent = {
 
   /**
+   * @readonly
+   */
+  schema: {
+    playerHeight: {
+      type: 'int',
+      default: 1.65
+    }
+  },
+
+  /**
    * Bind functions to the component and add event listeners
    */
   init () {
@@ -15,12 +25,11 @@ const PlayerBodyComponent = {
 
     /**
      * A raycaster instance with default values.
-     * TODO configure via schema
      * @type {THREE.Raycaster}
      */
     this.raycaster = new THREE.Raycaster()
     this.raycaster.near         = 0
-    this.raycaster.far          = 20
+    this.raycaster.far          = 200
     this.raycaster.firstHitOnly = true
 
     /**
@@ -40,6 +49,14 @@ const PlayerBodyComponent = {
      * @type {Vector3}
      */
     this.direction = this.camera.up.multiplyScalar(-1)
+
+    /**
+     * Target height of the player's head
+     * @type {number}
+     */
+    this.distanceToTargetHeight = 0
+
+    this.targetHeight = this.data.playerHeight
   },
 
   /**
@@ -48,7 +65,7 @@ const PlayerBodyComponent = {
   bindFunctions () {
     this.floorLoaded = this.floorLoaded.bind(this)
     this.enterVR     = this.enterVR.bind(this)
-    this.tick        = AFRAME.utils.throttleTick(this.tick, 68, this)
+    this.tick        = this.tick.bind(this)
   },
 
   /**
@@ -86,25 +103,38 @@ const PlayerBodyComponent = {
     }
   },
 
-  tick () {
-    if (!this.floor) {
+  tick (time, delta) {
+    if (this.floor === null) {
       return
     }
 
+    this.updateTargetHeight()
+
+    if (this.distanceToTargetHeight !== 0) {
+      this.updatePlayerPosition(delta)
+    }
+  },
+
+  updateTargetHeight () {
     this.camera.updateMatrixWorld()
     this.camera.getWorldPosition(this.cameraPosition)
 
     this.raycaster.set(this.cameraPosition, this.direction)
 
     const intersections = this.raycaster.intersectObject(this.floor, true)
-
     if (intersections.length > 0) {
-      const {distance, point} = intersections[0]
-
-      if (distance !== 1.65) {
-        this.el.object3D.position.y += 1.65 - distance
-      }
+      this.distanceToTargetHeight = intersections[0].distance
+      this.targetHeight           = intersections[0].point.y + this.data.playerHeight
     }
+  },
+
+  updatePlayerPosition (delta) {
+    const computedPosition = this.el.object3D.position.y + (this.data.playerHeight - this.distanceToTargetHeight)
+    this.el.object3D.position.y = this.clamp(this.targetHeight, this.targetHeight + this.data.playerHeight, computedPosition)
+  },
+
+  clamp (min, max, value) {
+    return value < min ? min : (value > max ? max : value)
   }
 }
 
