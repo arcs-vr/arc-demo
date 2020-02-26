@@ -8,7 +8,7 @@
              @loaded.self="sceneLoaded = true"
              envmap-model="
                 path: /cubemap/;
-                intensity: 1;
+                intensity: .2;
                 fileTypes: png;
              "
              light="defaultLightsEnabled: false"

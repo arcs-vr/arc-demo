@@ -38,6 +38,12 @@ const CameraRig = {
      */
     this.rotationQuaternion = new THREE.Quaternion(0, 0, 0, 0)
 
+    /**
+     * Sprint multiplication factor
+     * @type {number}
+     */
+    this.sprintFactor = 1
+
     this.bindFunctions()
     this.addEventListeners()
 
@@ -51,6 +57,7 @@ const CameraRig = {
     this.enterVR           = this.enterVR.bind(this)
     this.arcsConnected     = this.arcsConnected.bind(this)
     this.getMovementVector = this.getMovementVector.bind(this)
+    this.toggleSprint      = this.toggleSprint.bind(this)
   },
 
   /**
@@ -59,6 +66,9 @@ const CameraRig = {
   addEventListeners () {
     this.el.sceneEl.addEventListener('enter-vr', this.enterVR)
     this.el.sceneEl.addEventListener('arc-remote-connected', this.arcsConnected)
+
+    window.addEventListener('keydown', this.toggleSprint)
+    window.addEventListener('keyup', this.toggleSprint)
   },
 
   arcsConnected () {
@@ -85,7 +95,7 @@ const CameraRig = {
   getMovementVector (delta) {
     this.camera.getWorldQuaternion(this.rotationQuaternion)
     this.directionVector.copy(this.wasdControls.velocity)
-    this.directionVector.multiplyScalar(delta * 20)
+    this.directionVector.multiplyScalar(delta * 20 * this.sprintFactor)
     this.directionVector.applyQuaternion(this.rotationQuaternion)
     this.directionVector.y = 0
 
@@ -101,6 +111,16 @@ const CameraRig = {
 
     WASDControls.prototype.getMovementVector = this.getMovementVector
   },
+
+  /**
+   *
+   * @param {KeyboardEvent} event
+   */
+  toggleSprint (event) {
+    if (event.key === 'Shift') {
+      this.sprintFactor = event.type === 'keydown' ? 2 : 1
+    }
+  }
 }
 
 AFRAME.registerComponent('camera-rig', CameraRig)

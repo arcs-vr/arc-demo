@@ -2,7 +2,7 @@
   "entrypoints": {
     "build/main": {
       "js": [
-        "https://127.0.0.1:8080/build/js/build/main.57534fc29cf27fe2d2cd.js"
+        "/build/js/build/main.e1f574cf9d57b1db4390.js"
       ]
     }
   }

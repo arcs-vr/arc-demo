@@ -8,23 +8,22 @@
                   scale="10 10 10"
         />
 
-        <a-entity floor-model
-                  envmap-model
+        <a-entity envmap-model
+                  floor-model
                   gltf-model="#floor"
                   id="floor"
                   position="0 0 0"
                   scale="10 10 10"
         />
 
-        <a-entity light="type: ambient; color: #BBB; intensity: 1"/>
-        <a-entity light="type: point; color: #FFF; intensity: 3"
-                  position="0 35 0"
+        <a-entity light="type: ambient; color: #BBB; intensity: .2"/>
+        <a-entity light="type: point; color: #FFF; intensity: 1;"
+                  position="-400 35 150"
         />
     </a-entity>
 </template>
 
 <script>
-
   import '../aframe/floor-model-component.js'
   import '../aframe/envmap-model-component.js'
 

@@ -30,6 +30,9 @@ const envMapModelSystem = {
   envMapLoaded () {
     this.loaded = true
     this.el.emit('envmap-loaded')
+
+    this.el.object3D.background  = this.envMap
+    this.el.object3D.environment = this.envMap
   }
 }
 
