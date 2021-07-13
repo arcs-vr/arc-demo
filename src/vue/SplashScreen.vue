@@ -1,27 +1,31 @@
 <template>
-    <transition mode="out-in"
-                name="fade"
+  <transition
+    mode="out-in"
+    name="fade"
+  >
+    <div
+      class="splash"
+      id="splash-screen"
+      v-if="show"
     >
-        <div class="splash"
-             id="splash-screen"
-             v-if="show"
-        >
-            <h1>ARCS Demo</h1>
-            <div class="logo">
-                <arc-logo></arc-logo>
-            </div>
-            <p v-html="`Loading…&nbsp;(Item ${itemsLoaded + 1} of ${itemsTotal})`"
-               v-if="!loaded"
-            />
-            <p v-else>Loading completed.</p>
-            <button @click="start"
-                    class="button"
-                    type="button"
-            >
-                Let's go!
-            </button>
-        </div>
-    </transition>
+      <h1>ARCS Demo</h1>
+      <div class="logo">
+        <arc-logo/>
+      </div>
+      <p
+        v-html="`Loading…&nbsp;(Item ${itemsLoaded + 1} of ${itemsTotal})`"
+        v-if="!loaded"
+      />
+      <p v-else>Loading completed.</p>
+      <button
+        @click="start"
+        class="button"
+        type="button"
+      >
+        Let's go!
+      </button>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -65,44 +69,45 @@
   }
 </script>
 
-<style lang="scss"
-       scoped
+<style
+  lang="scss"
+  scoped
 >
-    @import '~arc-cd/src/variables';
-    @import '~arc-cd/src/typography';
+  @import '~arc-cd/src/variables';
+  @import '~arc-cd/src/typography';
 
-    .splash {
-        align-items: center;
-        backface-visibility: hidden;
-        background-color: $theme-dark;
-        color: $theme-light;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        justify-content: center;
-        left: 0;
-        perspective: 1000px;
-        position: fixed;
-        top: 0;
-        transform: translateZ(0);
-        width: 100%;
-        z-index: 10000;
+  .splash {
+    align-items: center;
+    backface-visibility: hidden;
+    background-color: $theme-dark;
+    color: $theme-light;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    perspective: 1000px;
+    position: fixed;
+    top: 0;
+    transform: translateZ(0);
+    width: 100%;
+    z-index: 10000;
 
-        .logo {
-            max-height: 60%;
-            max-width: 500px;
-            padding: 5vh;
-            width: 80vmin;
-        }
-
-        .button {
-            background-color: $theme-primary;
-            border: 0;
-            color: $theme-light;
-            padding: 1rem;
-            font-size: 2rem;
-            cursor: pointer;
-            margin-bottom: 1rem;
-        }
+    .logo {
+      max-height: 60%;
+      max-width: 500px;
+      padding: 5vh;
+      width: 80vmin;
     }
+
+    .button {
+      background-color: $theme-primary;
+      border: 0;
+      color: $theme-light;
+      cursor: pointer;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      padding: 1rem;
+    }
+  }
 </style>

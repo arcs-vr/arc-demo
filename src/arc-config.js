@@ -4,5 +4,5 @@ export const config = {
   host: 'mqtt.barthy.koeln',
   port: 8083,
   routeApp: 'index',
-  routeRemote: 'remote-selector',
+  routeRemote: 'remote-selector'
 }

@@ -1,64 +1,71 @@
 <template>
-    <a-scene :arc-system="arcSystemOptions"
-             @loaded.stop.self.once="sceneLoaded = true"
-             @renderstart="renderStarted = true"
-             @arc-cursor-primary-click="$stats['interactions_count']++"
-             @arc-remote-connected="remoteConnected = true"
-             @arc-remote-disconnected="remoteConnected = false"
-             cubemap-environment="background: false;"
-             debug
-             id="scene"
-             light="defaultLightsEnabled: false"
-             loading-screen="enabled: false"
-             ref="scene"
-             renderer="
-                antialias: true;
-                colorManagement: true;
-                alpha: false;
-                physicallyCorrectLights: true;
-             "
-             shadow="enabled: false"
+  <a-scene
+    :arc-system="arcSystemOptions"
+    @loaded.stop.self.once="sceneLoaded = true"
+    @renderstart="renderStarted = true"
+    @arc-cursor-primary-click="$stats['interactions_count']++"
+    @arc-remote-connected="remoteConnected = true"
+    @arc-remote-disconnected="remoteConnected = false"
+    cubemap-environment="background: false;"
+    debug
+    id="scene"
+    light="defaultLightsEnabled: false"
+    loading-screen="enabled: false"
+    ref="scene"
+    renderer="
+       antialias: true;
+       colorManagement: true;
+       alpha: false;
+       physicallyCorrectLights: true;
+    "
+    shadow="enabled: false"
+  >
+    <assets
+      @assets-loaded="assetsLoaded = true"
+      @loading-status="setLoadingStatus"
+    />
+
+    <app
+      @app-loaded="appLoaded = true"
+      v-if="assetsLoaded"
+      :remote-connected="remoteConnected"
+    />
+
+    <camera-rig :start="start"/>
+
+    <arc-connect-button @arc-connect="showModal = true"/>
+
+    <transition
+      appear
+      mode="out-in"
+      name="fade"
     >
-        <assets @assets-loaded="assetsLoaded = true"
-                @loading-status="setLoadingStatus"
+      <keep-alive>
+        <arc-connect-modal
+          :visible="showModal"
+          @arc-remote-name="connectModal"
+          @close="showModal = false"
+          v-if="showModal"
         />
+      </keep-alive>
+    </transition>
 
-        <app @app-loaded="appLoaded = true"
-             v-if="assetsLoaded"
-             :remote-connected="remoteConnected"
-        />
+    <a-entity
+      light="
+        type: directional;
+        color: #FFF;
+        intensity: 0;
+      "
+    />
 
-        <camera-rig :start="start"/>
-
-        <arc-connect-button @arc-connect="showModal = true"/>
-
-        <transition appear
-                    mode="out-in"
-                    name="fade"
-        >
-            <keep-alive>
-                <arc-connect-modal :visible="showModal"
-                                   @arc-remote-name="connectModal"
-                                   @close="showModal = false"
-                                   v-if="showModal"
-                />
-            </keep-alive>
-        </transition>
-
-        <a-entity light="
-                    type: directional;
-                    color: #FFF;
-                    intensity: 0;
-                  "
-        />
-
-        <splash-screen :show="showSplash"
-                       :items-loaded="itemsLoaded"
-                       :items-total="itemsTotal"
-                       :loaded="assetsLoaded"
-                       @start="start = true"
-        />
-    </a-scene>
+    <splash-screen
+      :show="showSplash"
+      :items-loaded="itemsLoaded"
+      :items-total="itemsTotal"
+      :loaded="assetsLoaded"
+      @start="start = true"
+    />
+  </a-scene>
 </template>
 
 <script>
@@ -70,11 +77,11 @@
   import 'arc-aframe-system'
 
   import ArcConnectButton from 'arc-vue-remotes/src/components/ArcConnectButton.vue'
-  import ArcConnectModal  from 'arc-vue-remotes/src/components/ArcConnectModal.vue'
+  import ArcConnectModal from 'arc-vue-remotes/src/components/ArcConnectModal.vue'
 
-  import Assets       from './Assets.vue'
-  import App          from './App.vue'
-  import CameraRig    from './CameraRig.vue'
+  import Assets from './Assets.vue'
+  import App from './App.vue'
+  import CameraRig from './CameraRig.vue'
   import SplashScreen from './SplashScreen.vue'
 
   export default {
@@ -107,7 +114,7 @@
     methods: {
 
       connectModal (deviceName) {
-        this.$stats['connected_at']           = (new Date()).getTime()
+        this.$stats['connected_at'] = (new Date()).getTime()
         this.$stats['remote_connection_type'] = 'modal'
         this.connect(deviceName)
       },
@@ -128,7 +135,7 @@
 
       setLoadingStatus (itemsLoaded, itemsTotal) {
         this.itemsLoaded = itemsLoaded
-        this.itemsTotal  = itemsTotal
+        this.itemsTotal = itemsTotal
       }
     },
 
@@ -161,27 +168,27 @@
 </script>
 
 <style lang="scss">
-    * {
-        box-sizing: border-box;
-    }
+  * {
+    box-sizing: border-box;
+  }
 
-    body,
-    html {
-        margin: 0;
-        padding: 0;
-    }
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+  }
 
-    .fade-enter-active,
-    .fade-leave-active {
-        transition: opacity .4s ease;
-    }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .4s ease;
+  }
 
-    .fade-enter,
-    .fade-leave-to {
-        opacity: 0;
-    }
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
 
-    .a-enter-ar-button {
-        display: none;
-    }
+  .a-enter-ar-button {
+    display: none;
+  }
 </style>

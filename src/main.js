@@ -1,13 +1,13 @@
-import Vue                     from 'vue'
+import Vue from 'vue'
 import { ArcVueOptionsPlugin } from 'arc-vue-options-plugin'
-import { router }              from './router.js'
-import { config }              from './arc-config.js'
+import { router } from './router.js'
+import { config } from './arc-config.js'
 
 import RouterWrapper from './vue/RouterWrapper.vue'
 
 Vue.use(ArcVueOptionsPlugin, config)
 
-Vue.config.productionTip   = false
+Vue.config.productionTip = false
 Vue.config.ignoredElements = [/^a-/]
 
 Vue.prototype.$stats = {
@@ -26,14 +26,14 @@ Vue.prototype.$stats = {
   numbers_select_count: 0,
   numbers_clear_count: 0,
   numbers_swap_count: 0,
-  jump_count: 0,
+  jump_count: 0
 }
 
 const vm = new Vue({
   router: router,
   render (createElement) {
     return createElement(RouterWrapper)
-  },
+  }
 })
 
 vm.$mount(document.getElementById('app'))

@@ -2,4 +2,4 @@ import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from 'three-
 
 THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree
-THREE.Mesh.prototype.raycast                     = acceleratedRaycast
+THREE.Mesh.prototype.raycast = acceleratedRaycast

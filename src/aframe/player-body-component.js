@@ -42,8 +42,8 @@ const PlayerBodyComponent = {
      * @type {THREE.Raycaster}
      */
     this.raycaster = new THREE.Raycaster()
-    this.raycaster.near         = 0
-    this.raycaster.far          = 24
+    this.raycaster.near = 0
+    this.raycaster.far = 24
     this.raycaster.firstHitOnly = true
 
     /**
@@ -104,9 +104,9 @@ const PlayerBodyComponent = {
    * Bind functions to the component
    */
   bindFunctions () {
-    this.tick              = this.tick.bind(this)
-    this.jump              = this.jump.bind(this)
-    this.navMeshLoaded     = this.navMeshLoaded.bind(this)
+    this.tick = this.tick.bind(this)
+    this.jump = this.jump.bind(this)
+    this.navMeshLoaded = this.navMeshLoaded.bind(this)
     this.computeBoundsTree = this.computeBoundsTree.bind(this)
   },
 
@@ -213,7 +213,7 @@ const PlayerBodyComponent = {
     const deltaSeconds = delta / 1000
 
     if (Math.abs(this.bodyPosition.y - this.targetHeight) <= this.data.tolerance) {
-      this.velocity  = this.isJumping ? 5 : 0
+      this.velocity = this.isJumping ? 5 : 0
       this.isJumping = false
     }
 
@@ -247,7 +247,7 @@ const PlayerBodyComponent = {
     }
 
     return this.intersections[0].distance >= this.data.minDistanceToFloor - this.data.tolerance
-  },
+  }
 }
 
 AFRAME.registerComponent('player-body', PlayerBodyComponent)

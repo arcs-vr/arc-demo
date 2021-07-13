@@ -1,32 +1,21 @@
-const Encore            = require('@symfony/webpack-encore')
+const Encore = require('@symfony/webpack-encore')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
-const path              = require('path')
+const path = require('path')
 
 Encore
-  .enableBuildNotifications(true)
-
   .enableSingleRuntimeChunk()
+  .splitEntryChunks()
 
   .setOutputPath('public/')
   .setPublicPath('/')
 
   .cleanupOutputBeforeBuild()
 
-  .enableSourceMaps(!Encore.isProduction())
-  .enableVersioning(Encore.isProduction())
-
   .addEntry('main', './src/main.js')
-
-  .configureFilenames({
-    js: 'js/[name].[contenthash].js',
-    css: 'css/[name].[contenthash].css',
-    fonts: 'fonts/[name].[hash:8].[ext]',
-    images: 'images/[name].[hash:8].[ext]'
-  })
 
   .addExternals({
     three: 'THREE',
-    aframe: 'AFRAME',
+    aframe: 'AFRAME'
   })
 
   .enableVueLoader(
@@ -39,12 +28,8 @@ Encore
       runtimeCompilerBuild: false
     }
   )
+
   .enableSassLoader()
-  .enablePostCssLoader(function (options) {
-    options.config = {
-      path: path.join(__dirname, 'postcss.config.js')
-    }
-  })
 
   .addLoader({
     test: /\.(gltf)$/,
@@ -99,35 +84,38 @@ Encore
 
   .copyFiles([
     {
-      from: './node_modules/three/examples/js/libs/draco/gltf',
+      from: './node_modules/super-three/examples/js/libs/draco/gltf',
       pattern: /draco_(decoder|wasm_wrapper)\.(js|wasm)/,
-      to: '[path][name].[ext]',
-    },
+      to: '[path][name].[ext]'
+    }
   ])
 
-  .configureDefinePlugin(options => {
-    options.BUILD_DEBUG = JSON.stringify(!Encore.isProduction())
-  })
-
-  .configureBabel(
-    () => {},
+  .configureImageRule(
     {
-      useBuiltIns: 'usage',
-      corejs: '3'
+      type: 'asset',
+      maxSize: 8 * 1024,
+      filename: 'images/[name].[fullhash:8].[ext]'
+    },
+    rule => {
+      // do not handle files in gltf models
+      rule.exclude = /models/
     }
   )
 
-  .configureTerserPlugin(function (options) {
-    options.extractComments = false
-    options.terserOptions   = {
-      output: {
-        comments: false
+  .addLoader({
+    test: /models.*\.(bin|png|jpe?g|gif)$/,
+    use: {
+      loader: 'file-loader',
+      options: {
+        name: '[path][name].[fullhash:8].[ext]',
+        esModule: false
       }
     }
   })
 
-  .configureLoaderRule('images', rule => {
-    rule.options.esModule = false
+  .configureFontRule({
+    type: 'asset',
+    filename: 'fonts/[name].[fullhash:8].[ext]'
   })
 
   .addPlugin(new HtmlWebPackPlugin({
@@ -144,16 +132,40 @@ Encore
     nodeModules: false
   }))
 
+if (Encore.isProduction()) {
+  Encore
+    .enablePostCssLoader()
+    .enableVersioning()
+    .configureTerserPlugin(function (options) {
+      options.extractComments = false
+      options.parallel = true
+      options.terserOptions = {
+        output: {
+          comments: false
+        }
+      }
+    })
+    .configureFilenames({
+      js: '[name].[contenthash].js',
+      css: '[name].[contenthash].css'
+    })
+}
+
+if (Encore.isDevServer()) {
+  Encore
+    .disableCssExtraction()
+    .enableSourceMaps()
+    .configureDevServerOptions(options => {
+      options.https = {
+        pfx: path.join(process.env.HOME, '.symfony/certs/default.p12')
+      }
+    })
+}
+
 const config = Encore.getWebpackConfig()
 
 config.optimization = {
-  minimize: Encore.isProduction(),
-}
-
-// https://gist.github.com/surma/b2705b6cca29357ebea1c9e6e15684cc
-// https://gist.github.com/surma/b2705b6cca29357ebea1c9e6e15684cc#gistcomment-2735059
-config.node = {
-  fs: 'empty'
+  minimize: Encore.isProduction()
 }
 
 // https://github.com/webpack/webpack/issues/8412
@@ -166,7 +178,7 @@ config.module.defaultRules = [
   {
     test: /\.json$/i,
     type: 'json'
-  },
+  }
 ]
 
 module.exports = config

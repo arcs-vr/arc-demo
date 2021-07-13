@@ -1,6 +1,6 @@
-import { MovementSchema }     from 'arc-aframe-movement/src/MovementSchema.js'
+import { MovementSchema } from 'arc-aframe-movement/src/MovementSchema.js'
 import { IntersectionEvents } from 'aframe-intersection-events/src/IntersectionEvents.js'
-import { ArcCursorActions }   from 'arc-aframe-cursor/src/arc-cursor-actions.js'
+import { ArcCursorActions } from 'arc-aframe-cursor/src/arc-cursor-actions.js'
 
 const THREE_QUARTER_PI = Math.PI * .75
 
@@ -21,7 +21,7 @@ export const GazeControls = {
      * Selector for the navigation mesh to intersect with
      */
     navMesh: {
-      type: 'selector',
+      type: 'selector'
     },
 
     /**
@@ -116,12 +116,12 @@ export const GazeControls = {
    * Bind functions to the component
    */
   bindFunctions () {
-    this.jump                         = this.jump.bind(this)
-    this.onKeyPress                   = this.onKeyPress.bind(this)
-    this.applyForce                   = this.applyForce.bind(this)
-    this.arcsRemoteConnected          = this.arcsRemoteConnected.bind(this)
-    this.arcsRemoteDisconnected       = this.arcsRemoteDisconnected.bind(this)
-    this.onIntersectionStatusChange   = this.onIntersectionStatusChange.bind(this)
+    this.jump = this.jump.bind(this)
+    this.onKeyPress = this.onKeyPress.bind(this)
+    this.applyForce = this.applyForce.bind(this)
+    this.arcsRemoteConnected = this.arcsRemoteConnected.bind(this)
+    this.arcsRemoteDisconnected = this.arcsRemoteDisconnected.bind(this)
+    this.onIntersectionStatusChange = this.onIntersectionStatusChange.bind(this)
     this.onIntersectionPositionChange = this.onIntersectionPositionChange.bind(this)
   },
 
@@ -254,7 +254,7 @@ export const GazeControls = {
    */
   applyForce () {
     this.isWalking = true
-    this.force     = 1
+    this.force = 1
   },
 
   /**
@@ -262,7 +262,7 @@ export const GazeControls = {
    */
   resetForce () {
     this.isWalking = false
-    this.force     = 0
+    this.force = 0
   },
 
   /**
@@ -332,7 +332,7 @@ export const GazeControls = {
 
     this.el.sceneEl.camera.getWorldPosition(this.cameraPositon)
 
-    this.cameraPositon.y  = 0
+    this.cameraPositon.y = 0
     this.targetPosition.y = 0
 
     this.velocity.set(1, 0, 1)
@@ -344,7 +344,7 @@ export const GazeControls = {
     this.velocity.multiplyScalar(scalarFactor)
 
     return this.velocity.clone()
-  },
+  }
 }
 
 AFRAME.registerComponent('gaze-controls', GazeControls)

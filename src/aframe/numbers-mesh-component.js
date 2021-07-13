@@ -1,5 +1,5 @@
 import { IntersectionEvents } from 'aframe-intersection-events/src/IntersectionEvents.js'
-import { ArcCursorActions }   from 'arc-aframe-cursor/src/arc-cursor-actions.js'
+import { ArcCursorActions } from 'arc-aframe-cursor/src/arc-cursor-actions.js'
 
 const NumbersMesh = {
 
@@ -20,18 +20,18 @@ const NumbersMesh = {
 
   init () {
     this.numbers = []
-    this.spots   = []
+    this.spots = []
     this.indices = {}
 
-    this.selected  = null
-    this.hovered   = null
+    this.selected = null
+    this.hovered = null
     this.animation = null
 
     const loader = new THREE.TextureLoader()
 
-    this.iconTouch  = loader.load(this.data.iconTouch.src)
+    this.iconTouch = loader.load(this.data.iconTouch.src)
     this.iconCancel = loader.load(this.data.iconCancel.src)
-    this.iconSwap   = loader.load(this.data.iconSwap.src)
+    this.iconSwap = loader.load(this.data.iconSwap.src)
 
     this.bindFunctions()
     this.addEventListeners()
@@ -39,8 +39,8 @@ const NumbersMesh = {
 
   bindFunctions () {
     this.findAndShuffleNumbers = this.findAndShuffleNumbers.bind(this)
-    this.objectIntersected     = this.objectIntersected.bind(this)
-    this.primaryClick          = this.primaryClick.bind(this)
+    this.objectIntersected = this.objectIntersected.bind(this)
+    this.primaryClick = this.primaryClick.bind(this)
   },
 
   addEventListeners () {
@@ -63,22 +63,22 @@ const NumbersMesh = {
 
   shuffleNumbers () {
     for (let i = 5; i > 0; i--) {
-      const j         = Math.floor(Math.random() * i)
-      const temp      = this.numbers[i]
+      const j = Math.floor(Math.random() * i)
+      const temp = this.numbers[i]
       this.numbers[i] = this.numbers[j]
       this.numbers[j] = temp
     }
 
     for (let i = 0; i < 6; i++) {
       this.indices[this.numbers[i].name] = i
-      this.numbers[i].position.z         = this.spots[i].z
+      this.numbers[i].position.z = this.spots[i].z
     }
   },
 
   objectIntersected (event) {
     const newTarget = event.detail.to
     const oldTarget = this.hovered
-    this.hovered    = newTarget
+    this.hovered = newTarget
 
     if (newTarget === null) {
       if (oldTarget !== null) {
@@ -243,7 +243,7 @@ const NumbersMesh = {
   swap (a, b) {
     const numberA = this.getNumber(a)
     const numberB = this.getNumber(b)
-    const z       = numberA.position.z
+    const z = numberA.position.z
 
     numberA.position.z = numberB.position.z
     numberB.position.z = z

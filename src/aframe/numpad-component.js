@@ -1,5 +1,5 @@
 import { IntersectionEvents } from 'aframe-intersection-events/src/IntersectionEvents.js'
-import { ArcCursorActions }   from 'arc-aframe-cursor/src/arc-cursor-actions.js'
+import { ArcCursorActions } from 'arc-aframe-cursor/src/arc-cursor-actions.js'
 
 const NumPad = {
 
@@ -26,10 +26,10 @@ const NumPad = {
     this.code = ''
 
     this.walkableMaterial = null
-    this.doorNavMesh      = null
-    this.bigDoor          = null
-    this.smallDoor        = null
-    this.bigDoorTargetZ   = null
+    this.doorNavMesh = null
+    this.bigDoor = null
+    this.smallDoor = null
+    this.bigDoorTargetZ = null
     this.smallDoorTargetZ = null
 
     this.digits = []
@@ -41,8 +41,8 @@ const NumPad = {
   },
 
   bindFunctions () {
-    this.primaryClick       = this.primaryClick.bind(this)
-    this.objectIntersected  = this.objectIntersected.bind(this)
+    this.primaryClick = this.primaryClick.bind(this)
+    this.objectIntersected = this.objectIntersected.bind(this)
     this.findNavMeshSegment = this.findNavMeshSegment.bind(this)
     this.findDoorsAndDigits = this.findDoorsAndDigits.bind(this)
   },
@@ -56,21 +56,21 @@ const NumPad = {
 
   findNavMeshSegment () {
     this.walkableMaterial = this.data.navMesh.object3D.getObjectByName('nav_mesh').material
-    this.doorNavMesh      = this.data.navMesh.object3D.getObjectByName(this.data.navMeshSegment)
+    this.doorNavMesh = this.data.navMesh.object3D.getObjectByName(this.data.navMeshSegment)
   },
 
   findDoorsAndDigits () {
-    this.bigDoor   = this.el.object3D.getObjectByName('numpad_door_big')
+    this.bigDoor = this.el.object3D.getObjectByName('numpad_door_big')
     this.smallDoor = this.el.object3D.getObjectByName('numpad_door_small')
 
     for (let i = 0; i < 6; i++) {
       this.digits.push(this.el.object3D.getObjectByName(`numpad_display_${i}`))
-      this.digits[i].material           = this.digits[i].material.clone()
-      this.digits[i].material.map       = this.digits[i].material.map.clone()
+      this.digits[i].material = this.digits[i].material.clone()
+      this.digits[i].material.map = this.digits[i].material.map.clone()
       this.digits[i].material.map.wrapS = THREE.RepeatWrapping
       this.digits[i].material.map.wrapT = THREE.RepeatWrapping
 
-      this.digits[i].material.needsUpdate     = true
+      this.digits[i].material.needsUpdate = true
       this.digits[i].material.map.needsUpdate = true
     }
 
@@ -93,7 +93,7 @@ const NumPad = {
 
   objectIntersected (event) {
     const buttonFrom = event.detail.from !== null ? this.getMatchedButton(event.detail.from) : null
-    const buttonTo   = event.detail.to !== null ? this.getMatchedButton(event.detail.to) : null
+    const buttonTo = event.detail.to !== null ? this.getMatchedButton(event.detail.to) : null
 
     if (buttonFrom !== null && buttonTo === null) {
       this.el.sceneEl.emit(
@@ -165,7 +165,7 @@ const NumPad = {
       this.el.emit('correct-code')
       this.doorNavMesh.material = this.walkableMaterial
 
-      this.bigDoorTargetZ   = this.bigDoor.position.z - 9.4
+      this.bigDoorTargetZ = this.bigDoor.position.z - 9.4
       this.smallDoorTargetZ = this.smallDoor.position.z - 4.7
       return
     }
@@ -191,8 +191,8 @@ const NumPad = {
   updateDigits () {
     for (let i = 0; i < this.code.length; i++) {
       const number = Number(this.code[i])
-      const x      = number % 4
-      const y      = 3 - Math.floor(number / 4)
+      const x = number % 4
+      const y = 3 - Math.floor(number / 4)
       this.digits[i].material.map.offset.set(x * .25, y * .25) // map is divided in quarters
     }
 

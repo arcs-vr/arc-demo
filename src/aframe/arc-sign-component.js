@@ -39,7 +39,7 @@ const ArcSignComponent = {
    * Bind functions to the component
    */
   bindFunctions () {
-    this.setPoster        = this.setPoster.bind(this)
+    this.setPoster = this.setPoster.bind(this)
     this.setPosterToChild = this.setPosterToChild.bind(this)
   },
 
@@ -91,7 +91,7 @@ const ArcSignComponent = {
     }
 
     if (child.material && 'poster' === child.material.name) {
-      child.material.map         = this.texture
+      child.material.map = this.texture
       child.material.needsUpdate = true
     }
   }
