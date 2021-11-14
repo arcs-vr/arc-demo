@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import 'aframe/dist/aframe-master.js'
+  import 'aframe/dist/aframe.js'
 
   import '../aframe/cubemap-environment-system.js'
   import '../bvh-raycasting.js'

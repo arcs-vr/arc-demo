@@ -21,7 +21,7 @@
         camera
         id="main-camera"
         look-controls="
-          hmdEnabled: false;
+          magicWindowTrackingEnabled: false;
           pointerLockEnabled: true;
         "
         position="0 1.7 0"

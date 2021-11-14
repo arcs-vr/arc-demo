@@ -1,8 +1,12 @@
 const Encore = require('@symfony/webpack-encore')
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
+
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
 Encore
+  .addPlugin(new NodePolyfillPlugin())
+
   .enableSingleRuntimeChunk()
   .splitEntryChunks()
 
@@ -39,7 +43,7 @@ Encore
         options: {
           esModule: false,
           outputPath: 'models',
-          name: '[name].[hash:8].[ext]'
+          name: '[name].[contenthash].[ext]'
         }
       },
       '@vxna/gltf-loader'
@@ -54,7 +58,8 @@ Encore
         options: {
           esModule: false,
           outputPath: 'models',
-          name: '[name].[hash:8].[ext]'
+          publicPath: '/models/',
+          name: '[name].[contenthash].[ext]'
         }
       }
     ]
@@ -67,7 +72,7 @@ Encore
       options: {
         esModule: false,
         outputPath: 'fonts',
-        name: '[name].[hash:8].[ext]'
+        name: '[name].[contenthash].[ext]'
       }
     }
   })
@@ -77,7 +82,7 @@ Encore
     use: {
       loader: 'file-loader',
       options: {
-        name: 'workers/[name].[hash:8].[ext]'
+        name: 'workers/[name].[contenthash].[ext]'
       }
     }
   })
@@ -94,7 +99,7 @@ Encore
     {
       type: 'asset',
       maxSize: 8 * 1024,
-      filename: 'images/[name].[fullhash:8].[ext]'
+      filename: 'images/[name].[contenthash][ext]'
     },
     rule => {
       // do not handle files in gltf models
@@ -102,20 +107,21 @@ Encore
     }
   )
 
+  .configureFontRule({
+    type: 'asset',
+    filename: 'fonts/[name].[contenthash][ext]'
+  })
+
+
   .addLoader({
-    test: /models.*\.(bin|png|jpe?g|gif)$/,
+    test: /models.*\.(png|jpe?g|gif)$/,
     use: {
       loader: 'file-loader',
       options: {
-        name: '[path][name].[fullhash:8].[ext]',
+        name: '/[path][name].[contenthash].[ext]',
         esModule: false
       }
     }
-  })
-
-  .configureFontRule({
-    type: 'asset',
-    filename: 'fonts/[name].[fullhash:8].[ext]'
   })
 
   .addPlugin(new HtmlWebPackPlugin({
@@ -156,8 +162,11 @@ if (Encore.isDevServer()) {
     .disableCssExtraction()
     .enableSourceMaps()
     .configureDevServerOptions(options => {
-      options.https = {
-        pfx: path.join(process.env.HOME, '.symfony/certs/default.p12')
+      options.server = {
+        type: 'https',
+        options: {
+          pfx: path.join(process.env.HOME, '.symfony/certs/default.p12')
+        }
       }
     })
 }
@@ -166,6 +175,10 @@ const config = Encore.getWebpackConfig()
 
 config.optimization = {
   minimize: Encore.isProduction()
+}
+
+if (Encore.isDevServer()) {
+  config.devtool = 'eval-source-map'
 }
 
 // https://github.com/webpack/webpack/issues/8412

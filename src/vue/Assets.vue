@@ -41,6 +41,7 @@
       alt="poster"
       id="poster-gaze_navigation"
       src="../../assets/posters/gaze_navigation.png"
+      crossorigin="anonymous"
     >
 
     <img
@@ -48,6 +49,7 @@
       alt="poster"
       id="poster-connect_arcs"
       src="../../assets/posters/connect_arcs.png"
+      crossorigin="anonymous"
     >
 
     <img
@@ -55,6 +57,7 @@
       alt="poster"
       id="poster-secondary_to_jump"
       src="../../assets/posters/secondary_to_jump.png"
+      crossorigin="anonymous"
     >
 
     <img
@@ -62,6 +65,7 @@
       alt="poster"
       id="poster-fill_out_form"
       src="../../assets/posters/fill_out_form.png"
+      crossorigin="anonymous"
     >
 
     <img
@@ -69,6 +73,7 @@
       alt="poster"
       id="poster-find_the_code"
       src="../../assets/posters/find_the_code.png"
+      crossorigin="anonymous"
     >
 
     <img
@@ -76,6 +81,7 @@
       alt="poster"
       id="poster-thank_you"
       src="../../assets/posters/thank_you.png"
+      crossorigin="anonymous"
     >
 
     <img
@@ -83,6 +89,7 @@
       alt="poster"
       id="icon-touch"
       src="../../assets/icons/baseline_touch_app_black_18dp.png"
+      crossorigin="anonymous"
     >
 
     <img
@@ -90,6 +97,7 @@
       alt="poster"
       id="icon-cancel"
       src="../../assets/icons/baseline_cancel_black_18dp.png"
+      crossorigin="anonymous"
     >
 
     <img
@@ -97,6 +105,7 @@
       alt="poster"
       id="icon-swap"
       src="../../assets/icons/baseline_swap_horizontal_circle_black_18dp.png"
+      crossorigin="anonymous"
     >
 
     <img
@@ -104,6 +113,7 @@
       alt="poster"
       id="icon-walk"
       src="../../assets/icons/baseline_directions_run_black_18dp.png"
+      crossorigin="anonymous"
     >
 
     <img
@@ -111,6 +121,7 @@
       alt="poster"
       id="icon-jump"
       src="../../assets/icons/baseline_upgrade_black_18dp.png"
+      crossorigin="anonymous"
     >
   </a-assets>
 </template>
@@ -130,8 +141,6 @@
     async mounted () {
       await this.$nextTick()
 
-      this.$el.fileLoader.manager.setURLModifier(this.urlModifier)
-
       this.assetCount = this.$el.childElementCount
       if (this.assetCount === 0) {
         this.$emit('assets-loaded')
@@ -141,17 +150,6 @@
     },
 
     methods: {
-      /**
-       * Regular expression that fixes gltf-loader resource paths.
-       * @link{https://regex101.com/r/8lW3gQ/2}
-       *
-       * @param {string} url
-       * @return {string}
-       */
-      urlModifier (url) {
-        return url.replace(/^(\/models\/?)(\/models|\/images)/, '$2')
-      },
-
       assetLoaded () {
         this.assetsLoaded++
 

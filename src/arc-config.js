@@ -1,5 +1,5 @@
 export const config = {
-  app: 'arcs-vr-scifi',
+  app: 'arcs-vr-demo',
   protocol: 'wss',
   host: 'mqtt.barthy.koeln',
   port: 8083,
