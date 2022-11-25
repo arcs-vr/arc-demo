@@ -1,70 +1,64 @@
-<template v-once>
+<template>
   <a-entity id="arcs-app">
-
     <a-entity
-      @model-loaded="modelLoaded"
-      gltf-model="#gltf-rooms"
       id="model-rooms"
+      gltf-model="#gltf-rooms"
+      @model-loaded="modelLoaded"
     />
 
     <a-entity
-      @model-loaded="modelLoaded"
       arc-sign="poster: #poster-gaze_navigation"
       gltf-model="#gltf-arc_sign_floor"
       position="-116 0 -2"
       rotation="0 -70 0"
       scale=".8 .8 .8"
-      v-if="!remoteConnected"
+      :visible="!remoteConnected"
+      @model-loaded="modelLoaded"
     />
 
     <a-entity
-      @model-loaded="modelLoaded"
       arc-sign="poster: #poster-connect_arcs"
       gltf-model="#gltf-arc_sign_floor"
       position="-116 0 2"
       rotation="0 -120 0"
       scale=".8 .8 .8"
-      v-if="!remoteConnected"
+      :visible="!remoteConnected"
+      @model-loaded="modelLoaded"
     />
 
     <a-entity
-      @model-loaded="modelLoaded"
       arc-sign="poster: #poster-thank_you"
       gltf-model="#gltf-arc_sign_floor"
       position="216 0 -2"
       rotation="0 -70 0"
       scale=".8 .8 .8"
+      @model-loaded="modelLoaded"
     />
 
     <a-entity
-      @model-loaded="modelLoaded"
       arc-sign="poster: #poster-fill_out_form"
       gltf-model="#gltf-arc_sign_floor"
       position="216 0 2"
       rotation="0 -120 0"
       scale=".8 .8 .8"
+      @model-loaded="modelLoaded"
     />
 
     <a-entity
-      @model-loaded="modelLoaded"
-      gltf-model="#gltf-nav_mesh"
       id="model-nav_mesh"
+      gltf-model="#gltf-nav_mesh"
       intersection-events="
         cursor: [arc-cursor];
         near: -.4;
         far: 3.5;
       "
       visible="false"
+      @model-loaded="modelLoaded"
     />
 
     <a-entity
-      @correct-code="$stats['first_door_at'] = (new Date()).getTime()"
-      @model-loaded="modelLoaded"
-      @numpad-clear="$stats['numpad_clear_count']++"
-      @numpad-number="$stats['numpad_number_count']++"
-      @wrong-code="$stats['wrong_codes_count']++"
-      gltf-model="#gltf-numpad"
       id="model-numpad-0"
+      gltf-model="#gltf-numpad"
       intersection-events="
         cursor: [arc-cursor];
         near: -.4;
@@ -76,25 +70,25 @@
         navMeshSegment: nav_mesh_door_0;
       "
       position="-102 0 0"
+      @correct-code="$stats['first_door_at'] = (new Date()).getTime()"
+      @model-loaded="modelLoaded"
+      @numpad-clear="$stats['numpad_clear_count']++"
+      @numpad-number="$stats['numpad_number_count']++"
+      @wrong-code="$stats['wrong_codes_count']++"
     />
 
     <a-entity
-      @model-loaded="modelLoaded"
       arc-sign="poster: #poster-find_the_code"
       arc-sign-connect
       gltf-model="#gltf-arc_sign_wall"
       position="-103 0 8"
       rotation="0 -90 0"
+      @model-loaded="modelLoaded"
     />
 
     <a-entity
-      @correct-code="$stats['second_door_at'] = (new Date()).getTime()"
-      @model-loaded="modelLoaded"
-      @numpad-clear="$stats['numpad_clear_count']++"
-      @numpad-number="$stats['numpad_number_count']++"
-      @wrong-code="$stats['wrong_codes_count']++"
-      gltf-model="#gltf-numpad"
       id="model-numpad-1"
+      gltf-model="#gltf-numpad"
       intersection-events="
         cursor: [arc-cursor];
         near: -.4;
@@ -105,27 +99,27 @@
         navMesh: #model-nav_mesh;
         navMeshSegment: nav_mesh_door_1;
       "
+      @correct-code="$stats['second_door_at'] = (new Date()).getTime()"
+      @model-loaded="modelLoaded"
+      @numpad-clear="$stats['numpad_clear_count']++"
+      @numpad-number="$stats['numpad_number_count']++"
+      @wrong-code="$stats['wrong_codes_count']++"
     />
 
     <a-entity
-      @model-loaded="modelLoaded"
       arc-sign="poster: #poster-secondary_to_jump"
       arc-sign-connect
       gltf-model="#gltf-arc_sign_floor"
       position="8 0 0"
       rotation="0 -90 0"
       scale=".8 .8 .8"
-      v-if="remoteConnected"
+      :visible="remoteConnected"
+      @model-loaded="modelLoaded"
     />
 
     <a-entity
-      @correct-code="$stats['third_door_at'] = (new Date()).getTime()"
-      @model-loaded="modelLoaded"
-      @numpad-clear="$stats['numpad_clear_count']++"
-      @numpad-number="$stats['numpad_number_count']++"
-      @wrong-code="$stats['wrong_codes_count']++"
-      gltf-model="#gltf-numpad"
       id="model-numpad-2"
+      gltf-model="#gltf-numpad"
       intersection-events="
         cursor: [arc-cursor];
         near: -.4;
@@ -137,16 +131,16 @@
         navMeshSegment: nav_mesh_door_2;
       "
       position="102 0 0"
-    />
-
-    <a-entity
-      @correct-code="onCompleted"
+      @correct-code="$stats['third_door_at'] = (new Date()).getTime()"
       @model-loaded="modelLoaded"
       @numpad-clear="$stats['numpad_clear_count']++"
       @numpad-number="$stats['numpad_number_count']++"
       @wrong-code="$stats['wrong_codes_count']++"
-      gltf-model="#gltf-numpad"
+    />
+
+    <a-entity
       id="model-numpad-3"
+      gltf-model="#gltf-numpad"
       intersection-events="
         cursor: [arc-cursor];
         near: -.4;
@@ -158,21 +152,26 @@
         navMeshSegment: nav_mesh_door_3;
       "
       position="204 0 0"
+      @correct-code="onCompleted"
+      @model-loaded="modelLoaded"
+      @numpad-clear="$stats['numpad_clear_count']++"
+      @numpad-number="$stats['numpad_number_count']++"
+      @wrong-code="$stats['wrong_codes_count']++"
     />
 
     <a-entity
-      @model-loaded="modelLoaded"
-      @number-clear="$stats['numbers_clear_count']++"
-      @number-select="$stats['numbers_select_count']++"
-      @number-swap="$stats['numbers_swap_count']++"
-      gltf-model="#gltf-numbers_mesh"
       id="model-numbers_mesh"
+      gltf-model="#gltf-numbers_mesh"
       intersection-events="
         cursor: [arc-cursor];
         near: -.4;
         far: 12;
       "
       numbers-mesh
+      @model-loaded="modelLoaded"
+      @number-clear="$stats['numbers_clear_count']++"
+      @number-select="$stats['numbers_select_count']++"
+      @number-swap="$stats['numbers_swap_count']++"
     />
 
     <transition
@@ -180,8 +179,8 @@
       name="fade"
     >
       <div
-        class="modal"
         v-if="completed"
+        class="modal"
       >
         <p>Thank you for playing.</p>
       </div>
@@ -194,7 +193,6 @@
         intensity: 1.2;
       "
     />
-
   </a-entity>
 </template>
 
@@ -245,7 +243,7 @@
       },
 
       onCompleted () {
-        this.$stats['completed_at'] = (new Date()).getTime()
+        this.$stats.completed_at = (new Date()).getTime()
 
         if (!this.isTouch) {
           return
@@ -275,19 +273,19 @@
       },
 
       checkDeviceId () {
-        if (null !== this.$stats['device_id']) {
+        if (this.$stats.device_id !== null) {
           return
         }
 
         const stored = localStorage.getItem('arc-name')
         if (stored) {
-          this.$stats['device_id'] = stored
+          this.$stats.device_id = stored
           return
         }
 
         const id = uuidv4()
         localStorage.setItem('arc-name', id)
-        this.$stats['device_id'] = id
+        this.$stats.device_id = id
       }
     }
   }
@@ -297,8 +295,8 @@
   lang="scss"
   scoped
 >
-  @import '~arc-cd/src/variables';
-  @import '~arc-cd/src/typography';
+  @import "~arc-cd/src/variables";
+  @import "~arc-cd/src/typography";
 
   .modal {
     align-items: center;

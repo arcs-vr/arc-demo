@@ -177,7 +177,7 @@ const MovementControls = {
       return
     }
 
-    if (false === this.data.enabled) {
+    if (this.data.enabled === false) {
       return
     }
 

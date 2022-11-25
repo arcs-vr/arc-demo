@@ -49,7 +49,7 @@ const NumPad = {
 
   addEventListeners () {
     this.el.addEventListener(IntersectionEvents.OBJECT_CHANGE, this.objectIntersected)
-    this.el.sceneEl.addEventListener(`arc-cursor-primary-click`, this.primaryClick)
+    this.el.sceneEl.addEventListener('arc-cursor-primary-click', this.primaryClick)
     this.data.navMesh.addEventListener('model-loaded', this.findNavMeshSegment)
     this.el.addEventListener('model-loaded', this.findDoorsAndDigits)
   },
@@ -193,7 +193,7 @@ const NumPad = {
       const number = Number(this.code[i])
       const x = number % 4
       const y = 3 - Math.floor(number / 4)
-      this.digits[i].material.map.offset.set(x * .25, y * .25) // map is divided in quarters
+      this.digits[i].material.map.offset.set(x * 0.25, y * 0.25) // map is divided in quarters
     }
 
     for (let i = this.code.length; i < 6; i++) {

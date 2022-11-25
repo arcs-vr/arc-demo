@@ -68,7 +68,7 @@ const ArcSignComponent = {
    * Load the texture (from cache) and traverse children with a callback
    */
   setPoster () {
-    if (null !== this.texture) {
+    if (this.texture !== null) {
       this.texture.dispose()
     }
 
@@ -90,7 +90,7 @@ const ArcSignComponent = {
       return
     }
 
-    if (child.material && 'poster' === child.material.name) {
+    if (child.material && child.material.name === 'poster') {
       child.material.map = this.texture
       child.material.needsUpdate = true
     }

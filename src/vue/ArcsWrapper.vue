@@ -1,17 +1,12 @@
 <template>
   <a-scene
+    id="scene"
+    ref="scene"
     :arc-system="arcSystemOptions"
-    @loaded.stop.self.once="sceneLoaded = true"
-    @renderstart="renderStarted = true"
-    @arc-cursor-primary-click="$stats['interactions_count']++"
-    @arc-remote-connected="remoteConnected = true"
-    @arc-remote-disconnected="remoteConnected = false"
     cubemap-environment="background: false;"
     debug
-    id="scene"
     light="defaultLightsEnabled: false"
     loading-screen="enabled: false"
-    ref="scene"
     renderer="
        antialias: true;
        colorManagement: true;
@@ -19,16 +14,21 @@
        physicallyCorrectLights: true;
     "
     shadow="enabled: false"
+    @arc-cursor-primary-click="$stats['interactions_count']++"
+    @arc-remote-connected="remoteConnected = true"
+    @arc-remote-disconnected="remoteConnected = false"
+    @loaded.stop.self.once="sceneLoaded = true"
+    @renderstart="renderStarted = true"
   >
-    <assets
+    <app-assets
       @assets-loaded="assetsLoaded = true"
       @loading-status="setLoadingStatus"
     />
 
     <app
-      @app-loaded="appLoaded = true"
       v-if="assetsLoaded"
       :remote-connected="remoteConnected"
+      @app-loaded="appLoaded = true"
     />
 
     <camera-rig :start="start"/>
@@ -42,10 +42,10 @@
     >
       <keep-alive>
         <arc-connect-modal
+          v-if="showModal"
           :visible="showModal"
           @arc-remote-name="connectModal"
           @close="showModal = false"
-          v-if="showModal"
         />
       </keep-alive>
     </transition>
@@ -59,17 +59,17 @@
     />
 
     <splash-screen
-      :show="showSplash"
       :items-loaded="itemsLoaded"
       :items-total="itemsTotal"
       :loaded="assetsLoaded"
+      :show="showSplash"
       @start="start = true"
     />
   </a-scene>
 </template>
 
 <script>
-  import 'aframe/dist/aframe.js'
+  import 'aframe/dist/aframe-v1.3.0.js'
 
   import '../aframe/cubemap-environment-system.js'
   import '../bvh-raycasting.js'
@@ -79,7 +79,7 @@
   import ArcConnectButton from 'arc-vue-remotes/src/components/ArcConnectButton.vue'
   import ArcConnectModal from 'arc-vue-remotes/src/components/ArcConnectModal.vue'
 
-  import Assets from './Assets.vue'
+  import AppAssets from './AppAssets.vue'
   import App from './App.vue'
   import CameraRig from './CameraRig.vue'
   import SplashScreen from './SplashScreen.vue'
@@ -92,7 +92,7 @@
       CameraRig,
       ArcConnectButton,
       ArcConnectModal,
-      Assets,
+      AppAssets,
       App
     },
 
@@ -111,11 +111,38 @@
       }
     },
 
+    computed: {
+
+      /**
+       * Whether to show the loading/splash screen
+       * @return {boolean}
+       */
+      showSplash () {
+        return !(
+          this.sceneLoaded &&
+          this.assetsLoaded &&
+          this.appLoaded &&
+          this.start &&
+          this.renderStarted
+        )
+      },
+
+      arcSystemOptions () {
+        return `
+                host: ${this.$arcOptions.host};
+                port: ${this.$arcOptions.port};
+                protocol: ${this.$arcOptions.protocol};
+                app: ${this.$arcOptions.app};
+                path: ${this.$arcOptions.path}
+              `
+      }
+    },
+
     methods: {
 
       connectModal (deviceName) {
-        this.$stats['connected_at'] = (new Date()).getTime()
-        this.$stats['remote_connection_type'] = 'modal'
+        this.$stats.connected_at = (new Date()).getTime()
+        this.$stats.remote_connection_type = 'modal'
         this.connect(deviceName)
       },
 
@@ -124,7 +151,7 @@
        */
       connect (deviceName) {
         localStorage.setItem('arc-name', deviceName)
-        this.$stats['device_id'] = deviceName
+        this.$stats.device_id = deviceName
 
         this.$refs.scene.emit('arcs-connect', {
           deviceName: deviceName
@@ -137,47 +164,11 @@
         this.itemsLoaded = itemsLoaded
         this.itemsTotal = itemsTotal
       }
-    },
-
-    computed: {
-
-      /**
-       * Whether to show the loading/splash screen
-       * @return {boolean}
-       */
-      showSplash () {
-        return !(
-          this.sceneLoaded
-          && this.assetsLoaded
-          && this.appLoaded
-          && this.start
-          && this.renderStarted
-        )
-      },
-
-      arcSystemOptions () {
-        return `
-                host: ${this.$arcOptions.host};
-                port: ${this.$arcOptions.port};
-                protocol: ${this.$arcOptions.protocol};
-                app: ${this.$arcOptions.app};
-              `
-      }
     }
   }
 </script>
 
 <style lang="scss">
-  * {
-    box-sizing: border-box;
-  }
-
-  body,
-  html {
-    margin: 0;
-    padding: 0;
-  }
-
   .fade-enter-active,
   .fade-leave-active {
     transition: opacity .4s ease;

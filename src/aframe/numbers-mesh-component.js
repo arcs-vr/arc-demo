@@ -46,7 +46,7 @@ const NumbersMesh = {
   addEventListeners () {
     this.el.addEventListener('model-loaded', this.findAndShuffleNumbers)
     this.el.addEventListener(IntersectionEvents.OBJECT_CHANGE, this.objectIntersected)
-    this.el.sceneEl.addEventListener(`arc-cursor-primary-click`, this.primaryClick)
+    this.el.sceneEl.addEventListener('arc-cursor-primary-click', this.primaryClick)
   },
 
   findAndShuffleNumbers () {
@@ -215,7 +215,7 @@ const NumbersMesh = {
   animateSelected () {
     this.animation = AFRAME.ANIME({
       targets: this.getNumber(this.selected).position,
-      y: [0, .5],
+      y: [0, 0.5],
       duration: 400,
       easing: 'easeOutCubic',
       direction: 'alternate',

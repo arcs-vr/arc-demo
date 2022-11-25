@@ -10,6 +10,27 @@ Encore
   .enableSingleRuntimeChunk()
   .splitEntryChunks()
 
+  .configureSplitChunks(options => {
+    Object.assign(options, {
+      chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name (module) {
+            // get the name. E.g. node_modules/packageName/not/this/part.js
+            // or node_modules/packageName
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+
+            // npm package names are URL-safe, but some servers don't like @ symbols
+            return `vendor/${packageName.replace('@', '')}`
+          }
+        }
+      }
+    })
+  })
+
   .setOutputPath('public/')
   .setPublicPath('/')
 
@@ -23,10 +44,7 @@ Encore
   })
 
   .enableVueLoader(
-    (config) => {
-      config.transformAssetUrls = {
-        'a-asset-item': ['src']
-      }
+    () => {
     },
     {
       runtimeCompilerBuild: false
@@ -34,36 +52,6 @@ Encore
   )
 
   .enableSassLoader()
-
-  .addLoader({
-    test: /\.(gltf)$/,
-    use: [
-      {
-        loader: 'file-loader',
-        options: {
-          esModule: false,
-          outputPath: 'models',
-          name: '[name].[contenthash].[ext]'
-        }
-      },
-      '@vxna/gltf-loader'
-    ]
-  })
-
-  .addLoader({
-    test: /\.(bin)$/,
-    use: [
-      {
-        loader: 'file-loader',
-        options: {
-          esModule: false,
-          outputPath: 'models',
-          publicPath: '/models/',
-          name: '[name].[contenthash].[ext]'
-        }
-      }
-    ]
-  })
 
   .addLoader({
     test: /\.(fnt)$/,
@@ -92,6 +80,10 @@ Encore
       from: './node_modules/super-three/examples/js/libs/draco/gltf',
       pattern: /draco_(decoder|wasm_wrapper)\.(js|wasm)/,
       to: '[path][name].[ext]'
+    },
+    {
+      from: './assets/models',
+      to: 'models/[path][name].[ext]'
     }
   ])
 
@@ -99,7 +91,7 @@ Encore
     {
       type: 'asset',
       maxSize: 8 * 1024,
-      filename: 'images/[name].[contenthash][ext]'
+      filename: 'images/[name].[contenthash:8][ext]'
     },
     rule => {
       // do not handle files in gltf models
@@ -109,16 +101,15 @@ Encore
 
   .configureFontRule({
     type: 'asset',
-    filename: 'fonts/[name].[contenthash][ext]'
+    filename: 'fonts/[name].[contenthash:8][ext]'
   })
-
 
   .addLoader({
     test: /models.*\.(png|jpe?g|gif)$/,
     use: {
       loader: 'file-loader',
       options: {
-        name: '/[path][name].[contenthash].[ext]',
+        name: '/[path][name].[contenthash:8].[ext]',
         esModule: false
       }
     }
@@ -146,28 +137,18 @@ if (Encore.isProduction()) {
       options.extractComments = false
       options.parallel = true
       options.terserOptions = {
+        keep_classnames: false,
+        mangle: true,
+        compress: true,
+        keep_fnames: false,
         output: {
           comments: false
         }
       }
     })
     .configureFilenames({
-      js: '[name].[contenthash].js',
-      css: '[name].[contenthash].css'
-    })
-}
-
-if (Encore.isDevServer()) {
-  Encore
-    .disableCssExtraction()
-    .enableSourceMaps()
-    .configureDevServerOptions(options => {
-      options.server = {
-        type: 'https',
-        options: {
-          pfx: path.join(process.env.HOME, '.symfony/certs/default.p12')
-        }
-      }
+      js: '[name].[contenthash:8].js',
+      css: '[name].[contenthash:8].css'
     })
 }
 
@@ -175,10 +156,6 @@ const config = Encore.getWebpackConfig()
 
 config.optimization = {
   minimize: Encore.isProduction()
-}
-
-if (Encore.isDevServer()) {
-  config.devtool = 'eval-source-map'
 }
 
 // https://github.com/webpack/webpack/issues/8412

@@ -4,23 +4,25 @@
     name="fade"
   >
     <div
-      class="splash"
-      id="splash-screen"
       v-if="show"
+      id="splash-screen"
+      class="splash"
     >
       <h1>ARCS Demo</h1>
       <div class="logo">
         <arc-logo/>
       </div>
       <p
-        v-html="`Loading…&nbsp;(Item ${itemsLoaded + 1} of ${itemsTotal})`"
         v-if="!loaded"
+        v-html="`Loading…&nbsp;(Item ${itemsLoaded + 1} of ${itemsTotal})`"
       />
-      <p v-else>Loading completed.</p>
+      <p v-else>
+        Loading completed.
+      </p>
       <button
-        @click="start"
         class="button"
         type="button"
+        @click="start"
       >
         Let's go!
       </button>
@@ -63,7 +65,7 @@
     methods: {
       start () {
         this.$emit('start')
-        this.$stats['started_at'] = (new Date()).getTime()
+        this.$stats.started_at = (new Date()).getTime()
       }
     }
   }
@@ -73,8 +75,8 @@
   lang="scss"
   scoped
 >
-  @import '~arc-cd/src/variables';
-  @import '~arc-cd/src/typography';
+  @import "~arc-cd/src/variables";
+  @import "~arc-cd/src/typography";
 
   .splash {
     align-items: center;

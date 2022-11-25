@@ -1,9 +1,9 @@
 <template>
   <a-entity
+    id="camera-rig"
     arc-gamepad-controls
     arc-keyboard-controls
     :gaze-controls="start ? 'navMesh: #model-nav_mesh' : false"
-    id="camera-rig"
     movement-controls="
       controls: arc-keyboard, arc-gamepad, gaze;
       fly: false;
@@ -18,8 +18,8 @@
       @do-jump="$stats['jump_count']++"
     >
       <a-entity
-        camera
         id="main-camera"
+        camera
         look-controls="
           magicWindowTrackingEnabled: false;
           pointerLockEnabled: true;
@@ -27,11 +27,10 @@
         position="0 1.7 0"
         user-height="1.6"
       >
-
         <a-entity
+          ref="cursor"
           arc-cursor
           position="0 0 -0.5"
-          ref="cursor"
         />
 
         <a-video

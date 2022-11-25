@@ -10,7 +10,7 @@ export const router = new Router({
 
     {
       path: '/',
-      component: () => import(/* webpackChunkName: "intro" */ './vue/Intro.vue'),
+      component: () => import(/* webpackChunkName: "intro" */ './vue/DemoIntro'),
       name: 'index'
     },
 

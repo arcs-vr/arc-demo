@@ -20,7 +20,7 @@ const PlayerBodyComponent = {
      */
     minDistanceToFloor: {
       type: 'number',
-      default: .1
+      default: 0.1
     },
 
     /**
@@ -29,7 +29,7 @@ const PlayerBodyComponent = {
      */
     tolerance: {
       type: 'number',
-      default: .01
+      default: 0.01
     }
   },
 

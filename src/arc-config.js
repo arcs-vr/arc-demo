@@ -1,8 +1,9 @@
 export const config = {
-  app: 'arcs-vr-demo',
+  app: 'mqtt/arcs-vr-demo',
   protocol: 'wss',
-  host: 'mqtt.barthy.koeln',
-  port: 8083,
+  host: 'test.mosquitto.org',
+  port: 8081,
   routeApp: 'index',
-  routeRemote: 'remote-selector'
+  routeRemote: 'remote-selector',
+  path: '/mqtt'
 }

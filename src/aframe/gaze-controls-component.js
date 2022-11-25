@@ -2,7 +2,7 @@ import { MovementSchema } from 'arc-aframe-movement/src/MovementSchema.js'
 import { IntersectionEvents } from 'aframe-intersection-events/src/IntersectionEvents.js'
 import { ArcCursorActions } from 'arc-aframe-cursor/src/arc-cursor-actions.js'
 
-const THREE_QUARTER_PI = Math.PI * .75
+const THREE_QUARTER_PI = Math.PI * 0.75
 
 /**
  * A-Frame component, that simulates gamepad movement input for camera rigs
@@ -242,7 +242,7 @@ export const GazeControls = {
 
     this.el.emit('jump')
 
-    if (false === this.isWalking) {
+    if (this.isWalking === false) {
       setTimeout(this.resetForce, 300)
     }
 
@@ -272,7 +272,7 @@ export const GazeControls = {
   onIntersectionPositionChange (event) {
     this.targetPosition = event.detail
 
-    if (null === this.playerBody.navMesh) {
+    if (this.playerBody.navMesh === null) {
       return
     }
 

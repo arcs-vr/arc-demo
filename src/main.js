@@ -1,3 +1,7 @@
+import 'arc-cd/src/_reset.scss'
+import 'arc-cd/src/_fonts.scss'
+import 'arc-cd/src/_typography.scss'
+
 import Vue from 'vue'
 import { ArcVueOptionsPlugin } from 'arc-vue-options-plugin'
 import { router } from './router.js'
