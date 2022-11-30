@@ -249,7 +249,7 @@
           return
         }
 
-        this.submitData()
+        // this.submitData()
         const scene = document.querySelector('a-scene')
         scene.addEventListener('exit-vr', this.complete)
         setTimeout(this.complete, 10000)
