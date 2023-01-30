@@ -7,7 +7,7 @@
     movement-controls="
       controls: arc-keyboard, arc-gamepad, gaze;
       fly: false;
-      speed: 15;
+      speed: 30;
     "
     position="-120 0 0"
     rotation="0 -90 0"

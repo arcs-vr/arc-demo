@@ -34,7 +34,7 @@ const MovementControls = {
      */
     speed: {
       type: 'number',
-      default: 0.3,
+      default: 1,
       min: 0
     },
 
@@ -182,6 +182,14 @@ const MovementControls = {
     }
 
     const velocityDelta = this.velocityCtrl.getVelocityDelta(deltaTime)
+
+    if (this.velocityCtrl.rx !== 0 || this.velocityCtrl.ry !== 0) {
+      const event = new window.CustomEvent('mousemove')
+      event.movementX = this.velocityCtrl.rx * 5
+      event.movementY = this.velocityCtrl.ry * 3
+      console.info(event.movementX, event.movementY)
+      window.dispatchEvent(event)
+    }
 
     if (velocityDelta) {
       // Rotate to heading

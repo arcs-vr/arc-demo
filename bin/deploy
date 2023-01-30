@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-rsync -r --progress --stats -h --delete -a --no-g --no-p public root@78.47.196.23:/var/www/arcs-demo/
+rsync -r --progress --stats -h --delete -a --no-g --no-p public barthy@arcs.barthy.koeln:/var/www/arcs-demo/
 

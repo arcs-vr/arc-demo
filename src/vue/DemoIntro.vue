@@ -1,39 +1,53 @@
 <template>
-  <div class="intro">
-    <h1>ARCS Demo</h1>
-    <p>
-      This virtual reality experience is part of a bachelor thesis that explores multi-device
-      interactivity.
-    </p>
-    <p>You will have the opportunity to connect a second smartphone, computer, or tablet as a remote controller.</p>
-    <p>
-      A second device is not mandatory/required. Your participation is highly valuable with or without a remote
-      control.
-    </p>
-    <p>
-      The VR experience consists of a simple parkour run, where you have to find codes that open doors.
-      <br>
-    </p>
-    <p>No data will be submitted!</p>
-    <router-link
-      class="button"
-      :to="{name: 'parcour'}"
-    >
-      Start the VR parcour
-    </router-link>
-    <hr>
-    <router-link
-      class="link"
-      :to="{name: 'remote-selector'}"
-    >
-      Or open the remote control page (for the second device).
-    </router-link>
+  <div class="ArcDemoIntro">
+    <ArcContentSection>
+      <ArcText tag="h1">
+        ARCS Demo
+      </ArcText>
+      <ArcText>
+        This virtual reality experience is part of a bachelor thesis that explores multi-device
+        interactivity.
+      </ArcText>
+      <ArcText>
+        You will have the opportunity to connect a second smartphone, computer, or tablet as a remote controller.
+      </ArcText>
+      <ArcText>
+        A second device is not mandatory/required. Your participation is highly valuable with or without a remote
+        control.
+      </ArcText>
+      <ArcText>
+        The VR experience consists of a simple parkour run, where you have to find codes that open doors.
+        <br>
+      </ArcText>
+      <ArcText>No data will be submitted!</ArcText>
+      <router-link
+        class="button"
+        :to="{name: 'parcour'}"
+      >
+        Start the VR parcour
+      </router-link>
+      <hr>
+      <router-link
+        class="link"
+        :to="{name: 'remote-selector'}"
+      >
+        Or open the remote control page (for the second device).
+      </router-link>
+    </ArcContentSection>
   </div>
 </template>
 
 <script>
+  import ArcText from 'arc-vue-remotes/src/components/ArcText.vue'
+  import ArcContentSection from 'arc-vue-remotes/src/components/ArcContentSection.vue'
+
   export default {
     name: 'DemoIntro',
+
+    components: {
+      ArcText,
+      ArcContentSection
+    },
 
     data () {
       return {
@@ -53,25 +67,19 @@
 >
   @import "~arc-cd/src/variables";
 
-  .intro {
+  .ArcDemoIntro {
     align-items: center;
     background-color: $theme-dark;
     color: $theme-light;
     display: flex;
-    flex-direction: column;
     height: 100%;
     justify-content: center;
-    left: 0;
-    overflow: auto;
     padding: 1rem;
-    position: fixed;
-    text-align: center;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
 
     hr {
-      margin: 1rem 0;
+      background-color: $theme-light;
+      height: 1px;
+      margin: 1rem;
       width: 256px;
     }
 
@@ -82,14 +90,8 @@
       cursor: pointer;
       font-size: 2rem;
       font-style: $font-paragraph-style;
-      margin-bottom: 1rem;
-      margin-top: 1rem;
       padding: 1rem;
       text-decoration: none;
-    }
-
-    .link {
-      margin-top: 1rem;
     }
   }
 </style>
