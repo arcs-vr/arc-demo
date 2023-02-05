@@ -187,7 +187,6 @@ const MovementControls = {
       const event = new window.CustomEvent('mousemove')
       event.movementX = this.velocityCtrl.rx * 5
       event.movementY = this.velocityCtrl.ry * 3
-      console.info(event.movementX, event.movementY)
       window.dispatchEvent(event)
     }
 

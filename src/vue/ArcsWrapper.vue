@@ -144,6 +144,8 @@
         this.$stats.connected_at = (new Date()).getTime()
         this.$stats.remote_connection_type = 'modal'
         this.connect(deviceName)
+        this.$refs.scene.focus()
+        this.$refs.scene.requestPointerLock()
       },
 
       /**
