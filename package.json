@@ -25,7 +25,7 @@
     "dev": "encore dev",
     "watch": "encore dev --watch",
     "build": "encore production",
-    "serve": "serve -s public --ssl-cert ~/.symfony/certs/default.p12"
+    "serve": "serve -s public --ssl-cert ~/.symfony5/certs/default.p12"
   },
   "browserslist": [
     ">1%, last 2 versions, not dead"

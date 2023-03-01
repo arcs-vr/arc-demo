@@ -22,7 +22,7 @@ const MovementControls = {
     },
 
     /**
-     * Ccontrols to enable
+     * Controls to enable
      */
     controls: {
       type: 'array',
