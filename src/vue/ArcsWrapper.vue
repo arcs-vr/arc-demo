@@ -134,8 +134,6 @@
                 protocol: ${this.$arcOptions.protocol};
                 app: ${this.$arcOptions.app};
                 path: ${this.$arcOptions.path};
-                username: ${this.$arcOptions.username};
-                password: ${this.$arcOptions.password};
               `
       }
     },
