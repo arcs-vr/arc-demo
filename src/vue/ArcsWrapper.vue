@@ -66,7 +66,7 @@
       @start="start = true"
     />
   </a-scene>
-</template>y
+</template>
 
 <script>
   import 'aframe/dist/aframe-v1.3.0.js'
@@ -133,7 +133,9 @@
                 port: ${this.$arcOptions.port};
                 protocol: ${this.$arcOptions.protocol};
                 app: ${this.$arcOptions.app};
-                path: ${this.$arcOptions.path}
+                path: ${this.$arcOptions.path};
+                username: ${this.$arcOptions.username};
+                password: ${this.$arcOptions.password};
               `
       }
     },

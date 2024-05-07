@@ -1722,15 +1722,15 @@ arc-aframe-cursor@arcs-vr/arc-aframe-cursor:
 
 arc-aframe-hand-camera@arcs-vr/arc-aframe-hand-camera:
   version "1.0.0"
-  resolved "https://codeload.github.com/arcs-vr/arc-aframe-hand-camera/tar.gz/95057fc5bd4e510037846cfbfbbbaff672106fc6"
+  resolved "https://codeload.github.com/arcs-vr/arc-aframe-hand-camera/tar.gz/e98515ef685355e0fceb7d5925ae19a9b85faffe"
 
 arc-aframe-movement@arcs-vr/arc-aframe-movement:
   version "1.0.0"
-  resolved "https://codeload.github.com/arcs-vr/arc-aframe-movement/tar.gz/4fe5178645eae6ee84807284874316c058e7f997"
+  resolved "https://codeload.github.com/arcs-vr/arc-aframe-movement/tar.gz/df69996f6ecf97a8ea10ed74c8e695a6e9f33b9a"
 
 arc-aframe-system@arcs-vr/arc-aframe-system:
   version "1.0.0"
-  resolved "https://codeload.github.com/arcs-vr/arc-aframe-system/tar.gz/35b0c46621a0b576d94181c14624bcf57b664083"
+  resolved "https://codeload.github.com/arcs-vr/arc-aframe-system/tar.gz/b5bc4d739a1897469f30c8a6c553fd9abf9a3052"
   dependencies:
     arc-events arcs-vr/arc-events
     async-mqtt "^2.4.2"
@@ -1743,11 +1743,11 @@ arc-cd@arcs-vr/arc-cd#main:
 
 arc-events@arcs-vr/arc-events:
   version "1.0.0"
-  resolved "https://codeload.github.com/arcs-vr/arc-events/tar.gz/7e6e806cc78ba32bd627f250edaf0cd8398121cb"
+  resolved "https://codeload.github.com/arcs-vr/arc-events/tar.gz/6e5bd6960347697bdb56568214b48ef011fba78e"
 
 arc-vue-options-plugin@arcs-vr/arc-vue-options-plugin:
-  version "0.1.0"
-  resolved "https://codeload.github.com/arcs-vr/arc-vue-options-plugin/tar.gz/a439be982455cf6d5ecadec62bb6725efb550163"
+  version "0.1.1"
+  resolved "https://codeload.github.com/arcs-vr/arc-vue-options-plugin/tar.gz/6a26155b7804da80ffc60f0155dce69ce8ba0c3c"
 
 arc-vue-remotes@arcs-vr/arc-vue-remotes#main:
   version "1.0.1"
