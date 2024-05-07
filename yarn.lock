@@ -4303,10 +4303,10 @@ html-webpack-injector@^1.1.4:
   resolved "https://registry.yarnpkg.com/html-webpack-injector/-/html-webpack-injector-1.1.4.tgz#eee4d11fc14d959b4bddd388b60ecb11e94045ca"
   integrity sha512-R+HeAYzPeL3dKIr5/a7a2S6R4fy2yHetKiB7cz5rXjwlnU5tghuy58kCBsKA/Qoj94MAgCYwllHmvYqy2nJSdg==
 
-html-webpack-plugin@^5.5.0:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-5.5.0.tgz#c3911936f57681c1f9f4d8b68c158cd9dfe52f50"
-  integrity sha512-sy88PC2cRTVxvETRgUHFrL4No3UxvcH8G1NepGhqaTT+GXN2kTamqasot0inS5hXeg1cMbFDt27zzo9p35lZVw==
+html-webpack-plugin@^5.6.0:
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-5.6.0.tgz#50a8fa6709245608cb00e811eacecb8e0d7b7ea0"
+  integrity sha512-iwaY4wzbe48AfKLZ/Cc8k0L+FKG6oSNRaZ8x5A/T/IVDGyXcbHncM9TdDa93wn0FsSm82FhTKW7f3vS61thXAw==
   dependencies:
     "@types/html-minifier-terser" "^6.0.0"
     html-minifier-terser "^6.0.2"
