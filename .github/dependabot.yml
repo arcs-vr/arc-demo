@@ -1,0 +1,37 @@
+version: 2
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "chore(ci):"
+    reviewers:
+      - "barthy-koeln"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore(dependencies):"
+    reviewers:
+      - "barthy-koeln"
+    groups:
+      vue:
+        patterns:
+          - "@vue/compiler-sfc"
+          - "vue"
+        update-types:
+          - "minor"
+          - "patch"
+      typescript-eslint:
+        patterns:
+          - "@typescript-eslint/*"
+        update-types:
+          - "minor"
+          - "patch"
