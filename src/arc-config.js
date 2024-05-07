@@ -3,7 +3,7 @@ export const config = {
   protocol: 'wss',
   host: 'test.mosquitto.org',
   path: '',
-  port: 8080,
+  port: 8081,
   routeApp: 'index',
   routeRemote: 'remote-selector'
 }
