@@ -77,7 +77,7 @@ Encore
 
   .copyFiles([
     {
-      from: './node_modules/super-three/examples/js/libs/draco/gltf',
+      from: './node_modules/draco3d',
       pattern: /draco_(decoder|wasm_wrapper)\.(js|wasm)/,
       to: '[path][name].[ext]'
     },

@@ -66,7 +66,7 @@
       @start="start = true"
     />
   </a-scene>
-</template>
+</template>y
 
 <script>
   import 'aframe/dist/aframe-v1.3.0.js'
