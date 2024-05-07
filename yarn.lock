@@ -1592,7 +1592,8 @@ adjust-sourcemap-loader@3.0.0:
 
 aframe-intersection-events@barthy-koeln/aframe-intersection-events:
   version "0.1.1"
-  resolved "https://codeload.github.com/barthy-koeln/aframe-intersection-events/tar.gz/b0057181e295cb6311c0f5eaa8cf651a46ae9836"
+  uid "917fac38258652bb3e398a865f45792841090ae5"
+  resolved "https://codeload.github.com/barthy-koeln/aframe-intersection-events/tar.gz/917fac38258652bb3e398a865f45792841090ae5"
 
 aframe@^1.3.0:
   version "1.3.0"
