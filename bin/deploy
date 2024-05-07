@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-rsync -r --progress --stats -h --delete -a --no-g --no-p public barthy@arcs.barthy.koeln:/var/www/arcs-demo/
-

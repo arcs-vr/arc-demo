@@ -42,7 +42,7 @@
     "arc-cd": "arcs-vr/arc-cd",
     "arc-events": "arcs-vr/arc-events",
     "arc-vue-options-plugin": "arcs-vr/arc-vue-options-plugin",
-    "arc-vue-remotes": "arcs-vr/arc-vue-remotes",
+    "arc-vue-remotes": "arcs-vr/arc-vue-remotes#main",
     "eslint-plugin-ember-suave": "^2.0.1",
     "regenerator-runtime": "^0.13.10",
     "three-mesh-bvh": "^0.5.18",
