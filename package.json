@@ -85,7 +85,7 @@
     "stylelint-order": "^5.0.0",
     "stylelint-scss": "^4.3.0",
     "vue-eslint-parser": "^8.3.0",
-    "vue-loader": "^15.10.1",
+    "vue-loader": "^17.4.2",
     "vue-template-compiler": "^2.7.14",
     "worker-loader": "^2.0.0"
   }
