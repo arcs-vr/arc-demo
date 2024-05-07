@@ -61,7 +61,7 @@
     "autobind-decorator": "^2.4.0",
     "autoprefixer": "^9.8.8",
     "core-js": "^3.26.1",
-    "cssnano": "^4.1.11",
+    "cssnano": "^6.0.1",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.26.0",
